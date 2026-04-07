@@ -106,7 +106,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             id="region"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
           >
             {REGIONS.map((r) => (
               <option key={r.region} value={r.region}>
@@ -125,8 +125,8 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             id="projectType"
             value={input.projectType || ''}
             onChange={handleProjectTypeChange}
-            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              getErrorMessage('projectType') ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg bg-white text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+              getErrorMessage('projectType') ? 'border-red-500' : 'border-slate-300'
             }`}
           >
             <option value="">Select a project type...</option>
@@ -154,8 +154,8 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             placeholder="Enter project cost"
             min="0"
             step="100"
-            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              getErrorMessage('estimatedCost') ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg bg-white text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+              getErrorMessage('estimatedCost') ? 'border-red-500' : 'border-slate-300'
             }`}
           />
           {getErrorMessage('estimatedCost') && (
@@ -179,8 +179,8 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             placeholder="Enter current home value"
             min="0"
             step="1000"
-            className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-              getErrorMessage('currentHomeValue') ? 'border-red-500' : 'border-gray-300'
+            className={`w-full px-4 py-3 border rounded-lg bg-white text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
+              getErrorMessage('currentHomeValue') ? 'border-red-500' : 'border-slate-300'
             }`}
           />
           {getErrorMessage('currentHomeValue') && (

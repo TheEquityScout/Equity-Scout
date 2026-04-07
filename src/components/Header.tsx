@@ -7,7 +7,7 @@ import React from 'react';
 
 export const Header: React.FC = () => {
   return (
-    <header className="bg-gradient-to-r from-slate-800 to-slate-900 text-white shadow-lg">
+    <header className="bg-gradient-to-r from-slate-900 to-slate-800 text-white shadow-lg">
       <div className="container mx-auto px-4 py-6">
         {/* Logo and Title */}
         <div className="flex items-center justify-between mb-4">
@@ -16,24 +16,24 @@ export const Header: React.FC = () => {
               <span className="text-white font-bold text-xl">ES</span>
             </div>
             <div>
-              <h1 className="text-3xl font-bold">Equity Scout</h1>
-              <p className="text-slate-300 text-sm">Data-Driven Home Improvement Analysis</p>
+              <h1 className="text-4xl font-bold text-white drop-shadow-lg">Equity Scout</h1>
+              <p className="text-emerald-100 text-sm font-medium">Data-Driven Home Improvement Analysis</p>
             </div>
           </div>
         </div>
 
         {/* Navigation */}
-        <nav className="flex space-x-6 text-sm">
-          <a href="#calculator" className="hover:text-emerald-400 transition">
+        <nav className="flex space-x-8 text-sm font-medium">
+          <a href="#calculator" className="text-white hover:text-emerald-300 transition">
             Calculator
           </a>
-          <a href="#about" className="hover:text-emerald-400 transition">
+          <a href="#about" className="text-white hover:text-emerald-300 transition">
             About
           </a>
-          <a href="#faq" className="hover:text-emerald-400 transition">
-            FAQ
+          <a href="#blog" className="text-white hover:text-emerald-300 transition">
+            Blog
           </a>
-          <a href="#contact" className="hover:text-emerald-400 transition">
+          <a href="#contact" className="text-white hover:text-emerald-300 transition">
             Contact
           </a>
         </nav>
