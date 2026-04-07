@@ -1,19 +1,19 @@
 /**
- * Project Payback - Main Application Styles
+ * Equity Scout - Main Application Styles
  * Global styles and custom CSS
  */
 
 :root {
-  /* Pro-Contractor Color Palette */
-  --primary-blue: #1e3a5f;
-  --secondary-blue: #2d5a8c;
-  --accent-green: #2d5a3d;
-  --light-gray: #f8f9fa;
-  --medium-gray: #7f8c8d;
-  --dark-text: #2c3e50;
-  --success-green: #27ae60;
-  --warning-orange: #e67e22;
-  --danger-red: #c0392b;
+  /* Fintech Modern Color Palette */
+  --primary-slate: #1e293b;
+  --secondary-slate: #334155;
+  --accent-emerald: #10b981;
+  --light-gray: #f8fafc;
+  --medium-gray: #94a3b8;
+  --dark-text: #0f172a;
+  --success-green: #10b981;
+  --warning-orange: #f59e0b;
+  --danger-red: #ef4444;
 }
 
 /* Global Styles */
@@ -42,13 +42,15 @@ html {
   margin: 0 auto;
 }
 
-/* Forms */
+/* Forms - Ensure inputs are always readable */
 input[type='number'],
 input[type='text'],
 select,
 textarea {
   font-family: inherit;
   font-size: 1rem;
+  background-color: white !important;
+  color: #0f172a !important;
 }
 
 input[type='number']:focus,
@@ -56,6 +58,11 @@ input[type='text']:focus,
 select:focus,
 textarea:focus {
   outline: none;
+}
+
+input[type='number']::placeholder,
+input[type='text']::placeholder {
+  color: #cbd5e1 !important;
 }
 
 /* Buttons */
@@ -215,32 +222,5 @@ button:active {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-/* Dark Mode Support (Optional) */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --light-gray: #1a1a1a;
-    --dark-text: #e0e0e0;
-  }
-
-  body {
-    background-color: #0d0d0d;
-    color: var(--dark-text);
-  }
-
-  .card,
-  .result-card {
-    background-color: #1a1a1a;
-    border-color: #333;
-  }
-
-  input,
-  select,
-  textarea {
-    background-color: #2a2a2a;
-    color: var(--dark-text);
-    border-color: #444;
   }
 }
