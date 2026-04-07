@@ -1,0 +1,16 @@
+{
+  "name": "equity-scout",
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "framework": "vite",
+  "env": {
+    "VITE_APP_TITLE": "Equity Scout"
+  },
+  "routes": [
+    {
+      "src": "/(?!.*\\.)",
+      "dest": "/index.html"
+    }
+  ]
+}
