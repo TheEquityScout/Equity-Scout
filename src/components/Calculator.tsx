@@ -1,5 +1,5 @@
 /**
- * Project Payback - Calculator Component
+ * Equity Scout - Calculator Component
  * Main calculator form for user input
  */
 
@@ -27,28 +27,24 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
   const handleProjectTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value as ProjectType;
     setInput({ ...input, projectType: value || null });
-    // Clear errors for this field
     setErrors(errors.filter((err) => err.field !== 'projectType'));
   };
 
   const handleCostChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
     setInput({ ...input, estimatedCost: value });
-    // Clear errors for this field
     setErrors(errors.filter((err) => err.field !== 'estimatedCost'));
   };
 
   const handleHomeValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value ? parseFloat(e.target.value) : null;
     setInput({ ...input, currentHomeValue: value });
-    // Clear errors for this field
     setErrors(errors.filter((err) => err.field !== 'currentHomeValue'));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validate inputs
     const validationErrors = validateInputs(
       input.projectType,
       input.estimatedCost,
@@ -60,7 +56,6 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
       return;
     }
 
-    // Calculate ROI
     const results = calculateROI(
       input.projectType!,
       input.estimatedCost!,
@@ -73,7 +68,6 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
       return;
     }
 
-    // Generate recommendation
     const recommendation = generateRecommendation(
       input.projectType!,
       input.estimatedCost!,
@@ -81,10 +75,7 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
       region
     );
 
-    // Clear errors
     setErrors([]);
-
-    // Call parent callback
     onCalculate(results, recommendation);
   };
 
@@ -92,21 +83,39 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
     return errors.find((err) => err.field === field)?.message;
   };
 
-  return (
-    <div className="calculator-form bg-white rounded-lg shadow-md p-8">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Calculate Your ROI</h2>
+  const inputStyle = {
+    width: '100%',
+    padding: '12px 16px',
+    border: '1px solid #cbd5e1',
+    borderRadius: '8px',
+    backgroundColor: '#ffffff',
+    color: '#0f172a',
+    fontWeight: '500' as const,
+    fontSize: '1rem',
+    fontFamily: 'inherit',
+  };
 
-      <form onSubmit={handleSubmit} className="space-y-6">
+  const selectStyle = {
+    ...inputStyle,
+  };
+
+  return (
+    <div style={{ backgroundColor: '#ffffff', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)', padding: '32px' }}>
+      <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: '#1f2937', marginBottom: '24px' }}>
+        Calculate Your ROI
+      </h2>
+
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
         {/* Region Selector */}
-        <div className="form-group">
-          <label htmlFor="region" className="block text-sm font-semibold text-gray-700 mb-2">
+        <div>
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
             Region (for ROI adjustment)
           </label>
           <select
             id="region"
             value={region}
             onChange={(e) => setRegion(e.target.value)}
-            className="w-full px-4 py-3 border border-slate-300 rounded-lg bg-white text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            style={selectStyle}
           >
             {REGIONS.map((r) => (
               <option key={r.region} value={r.region}>
@@ -117,17 +126,18 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
         </div>
 
         {/* Project Type Dropdown */}
-        <div className="form-group">
-          <label htmlFor="projectType" className="block text-sm font-semibold text-gray-700 mb-2">
+        <div>
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
             Project Type *
           </label>
           <select
             id="projectType"
             value={input.projectType || ''}
             onChange={handleProjectTypeChange}
-            className={`w-full px-4 py-3 border rounded-lg bg-white text-slate-900 font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-              getErrorMessage('projectType') ? 'border-red-500' : 'border-slate-300'
-            }`}
+            style={{
+              ...selectStyle,
+              borderColor: getErrorMessage('projectType') ? '#ef4444' : '#cbd5e1',
+            }}
           >
             <option value="">Select a project type...</option>
             {ROI_DATABASE.map((project) => (
@@ -137,13 +147,15 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             ))}
           </select>
           {getErrorMessage('projectType') && (
-            <p className="text-red-500 text-sm mt-1">{getErrorMessage('projectType')}</p>
+            <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px' }}>
+              {getErrorMessage('projectType')}
+            </p>
           )}
         </div>
 
         {/* Estimated Cost Input */}
-        <div className="form-group">
-          <label htmlFor="estimatedCost" className="block text-sm font-semibold text-gray-700 mb-2">
+        <div>
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
             Estimated Project Cost ($) *
           </label>
           <input
@@ -154,21 +166,21 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             placeholder="Enter project cost"
             min="0"
             step="100"
-            className={`w-full px-4 py-3 border rounded-lg bg-white text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-              getErrorMessage('estimatedCost') ? 'border-red-500' : 'border-slate-300'
-            }`}
+            style={{
+              ...inputStyle,
+              borderColor: getErrorMessage('estimatedCost') ? '#ef4444' : '#cbd5e1',
+            }}
           />
           {getErrorMessage('estimatedCost') && (
-            <p className="text-red-500 text-sm mt-1">{getErrorMessage('estimatedCost')}</p>
+            <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px' }}>
+              {getErrorMessage('estimatedCost')}
+            </p>
           )}
         </div>
 
         {/* Current Home Value Input */}
-        <div className="form-group">
-          <label
-            htmlFor="currentHomeValue"
-            className="block text-sm font-semibold text-gray-700 mb-2"
-          >
+        <div>
+          <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
             Current Home Value ($) *
           </label>
           <input
@@ -179,20 +191,40 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
             placeholder="Enter current home value"
             min="0"
             step="1000"
-            className={`w-full px-4 py-3 border rounded-lg bg-white text-slate-900 font-medium placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 ${
-              getErrorMessage('currentHomeValue') ? 'border-red-500' : 'border-slate-300'
-            }`}
+            style={{
+              ...inputStyle,
+              borderColor: getErrorMessage('currentHomeValue') ? '#ef4444' : '#cbd5e1',
+            }}
           />
           {getErrorMessage('currentHomeValue') && (
-            <p className="text-red-500 text-sm mt-1">{getErrorMessage('currentHomeValue')}</p>
+            <p style={{ color: '#ef4444', fontSize: '0.875rem', marginTop: '4px' }}>
+              {getErrorMessage('currentHomeValue')}
+            </p>
           )}
         </div>
 
         {/* Submit Buttons */}
-        <div className="flex gap-3">
+        <div style={{ display: 'flex', gap: '12px' }}>
           <button
             type="submit"
-            className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 ease-in-out transform hover:scale-105"
+            style={{
+              flex: 1,
+              backgroundColor: '#10b981',
+              color: 'white',
+              fontWeight: 'bold',
+              padding: '12px 16px',
+              borderRadius: '8px',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '1rem',
+              transition: 'all 0.2s ease-in-out',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#059669';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#10b981';
+            }}
           >
             Calculate ROI
           </button>
@@ -217,7 +249,24 @@ export const Calculator: React.FC<CalculatorProps> = ({ onCalculate, onAddToComp
                   }
                 }
               }}
-              className="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition duration-200 ease-in-out transform hover:scale-105"
+              style={{
+                flex: 1,
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                fontWeight: 'bold',
+                padding: '12px 16px',
+                borderRadius: '8px',
+                border: 'none',
+                cursor: 'pointer',
+                fontSize: '1rem',
+                transition: 'all 0.2s ease-in-out',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#2563eb';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = '#3b82f6';
+              }}
             >
               Add to Comparison
             </button>
